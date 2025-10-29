@@ -1,0 +1,20 @@
+{
+  "name": "backend-development",
+  "version": "1.0.0",
+  "description": "A repository for learning complete backend end to end with code and all required rules and tips.",
+  "homepage": "https://github.com/Arpit036/Backend-Development#readme",
+  "bugs": {
+    "url": "https://github.com/Arpit036/Backend-Development/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arpit036/Backend-Development.git"
+  },
+  "license": "ISC",
+  "author": "Arpit",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
