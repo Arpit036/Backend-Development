@@ -47,6 +47,12 @@ app.get('/', function(req, res){
     res.send("hello world")
 })
 
+app.get('/profile', function(req, res){
+     res.send("profile section")
+})
+
 app.listen(3000)
+
+
 
  
