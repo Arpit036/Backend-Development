@@ -43,13 +43,20 @@
 const express = require('express')
 const app = express();
 
+app.use(function(req, res, next){
+      console.log("middleware chla")
+      next();
+})
+
 app.get('/', function(req, res){
-    res.send("hello world")
+    res.send("hello world");
 })
 
 app.get('/profile', function(req, res){
      res.send("profile section")
 })
+
+
 
 app.listen(3000)
 
