@@ -23,6 +23,20 @@ app.get('/read', async (req, res)=> {
      let users = await userModel.find()
     res.render("read", {user: {users}});
 })
+
+app.get('/edit/:userid', async (req, res)=> {
+     let users = await userModel.findOne({
+        _id: req.params.userid
+    })
+    res.render("edit",  {user});
+})
+ 
+app.get('/update/:userid', async (req, res)=> {
+    let{image, name, email} = req.body;
+     let users = await userModel.findOneAndUpdate({
+        _id: req.params.userid}, {image, name, email}, {new:true})
+    res.render("/read");
+})
  
 
 
