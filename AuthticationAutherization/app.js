@@ -1,19 +1,19 @@
-const cookieParser = require('cookie-parser');
+// Bcrypt
+
 const express = require('express')
 const app = express()
-app.use(cookieParser())
+const bcrypt = require('bcrypt')
+ 
 
 app.get("/", function(req, res){
-    // cookies set
-    res.cookie("name", "arpit");
-    res.send("done");
+     bcrypt.genSalt(10, function(err, salt){
+        bcrypt.hash("ewifwiownok", salt, function(err, hash){
+            // store hash in your password DB.
+            console.log(hash);
+            
+        })
+     })
 })
 
-
-app.get("/read", function(req, res){
-    console.log(req.cookies);
-    res.send("done");
-})
-
-
+ 
 app.listen(3000);
