@@ -18,6 +18,25 @@ app.get("/", (req, res)=>{
     res.render("index")
 })
 
+app.get("/profile", isLoggedIn, async (req, res)=>{
+    let user = await userModel.findOne({email: req.user.email});
+    res.render("profile", {user})
+})
+
+
+app.post("/post", isLoggedIn, async (req, res)=>{
+    let user = await userModel.findOne({email: req.user.email});
+    let {content} = req.body;
+
+    postModel.create({
+        user: user._id,
+        content
+    });
+    
+     user.posts.push(post._id);
+     await user.save();
+ });
+
 app.post("/register", (req, res)=>{
     let {email, password, username, name , age} = req.body ;
 
@@ -48,8 +67,11 @@ app.post("/login", (req, res)=>{
     if(!user) return res.status(500).send("something went wrong");
     
     bcrypt.compare(password, user.password, function(err, result){
-        if(result) res.status(200).send("you can login");
-        else res.redirect("/login");
+        if(result){
+          let token = jwt.sign({email: email, userid: user._id}, "shhh");
+          res.cookie("token", token);
+         res.status(200).redirect("/profile");
+         } else res.redirect("/login");
     })
 
         })
@@ -61,12 +83,12 @@ app.get('/logout', (req, res) =>{
 }) ;
 
 function isLoggedIn(req, res, next){
-    if(req.cookies.token === "") res.send("you must be logged in");
+    if(req.cookies.token === "") res.redirect("/login");
     else{
         let data = jwt.verify(req.cookies.token, "shhh")
         req.user = data;
+        next();
     }
-    next();
 }
 
  
